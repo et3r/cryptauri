@@ -1,7 +1,12 @@
 package main
 
-import "cryptauri/encrypter"
+import (
+	"cryptauri/encrypter"
+	"fmt"
+)
 
 func main() {
-	encrypter.EncryptMessage("super hyper duper secret message", "5up3rS3cretP@55w0rd!!-#$", 8)
+	messageEncrypted := encrypter.EncryptMessage("undecipherable message", "{5up3rP@ssw0rdw0w!--$}", 7)
+	fmt.Println("[*] Encrypted Message:")
+	fmt.Println(messageEncrypted)
 }
