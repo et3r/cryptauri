@@ -6,7 +6,7 @@ import (
 	"strconv"
 )
 
-func EncryptMessage(message string, password string, level uint8) string {
+func EncryptMessage(message string, password string, level uint8, verbose int) []string {
 
 	// Making slice of the encrypt-code
 	var encryptCode []string
@@ -71,7 +71,7 @@ func EncryptMessage(message string, password string, level uint8) string {
 
 	// Making slice of the first encrypt
 	var firstEncrypt []int
-	firstEncrypt = make([]int, 0, 500)
+	firstEncrypt = make([]int, 0, 1500)
 	for i := 0; i < len(asciiSentence); i++ {
 		suma := asciiSentence[i] + adaptedPassword[i]
 		firstEncrypt = append(firstEncrypt, int(suma))
@@ -79,7 +79,7 @@ func EncryptMessage(message string, password string, level uint8) string {
 
 	// Making slice of the second encrypt
 	var secondEncrypt []string
-	secondEncrypt = make([]string, 0, 500)
+	secondEncrypt = make([]string, 0, 1500)
 	for i := 0; i < len(firstEncrypt); i++ {
 		firstEncryptChar := strconv.Itoa(firstEncrypt[i])
 		for j := 0; j < len(firstEncryptChar); j++ {
@@ -122,10 +122,19 @@ func EncryptMessage(message string, password string, level uint8) string {
 		}
 	}
 
-	var finalMessage string
+	var finalMessage []string
+	finalMessage = make([]string, 0, 3)
+	var messageConcat string
 	for i := 0; i < len(secondEncrypt); i++ {
-		finalMessage += secondEncrypt[i]
+		messageConcat += secondEncrypt[i]
 	}
 
-	return finalMessage
+	if verbose == 0 {
+		finalMessage = append(finalMessage, messageConcat)
+		return finalMessage
+	} else {
+		finalMessage = append(finalMessage, messageConcat, password, strconv.Itoa(int(level)))
+		return finalMessage
+	}
+
 }
