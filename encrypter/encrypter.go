@@ -12,6 +12,7 @@ func EncryptMessage(message string, password string, level uint8, verbose int) [
 	var encryptCode []string
 	encryptCode = make([]string, 0, 26)
 	encryptCode = append(encryptCode, "%", "$", "@", "/", "!", "?", "¿", "*", "{", "#", "}", ".", "_", "¡", "-", ",", "&", "]", "|", "[", "¬", "+", "-", "=", "~", "ˆ", "`")
+	separator := "§"
 
 	// Making slice of the second encrypt range
 	var encryptRange []string
@@ -117,7 +118,7 @@ func EncryptMessage(message string, password string, level uint8, verbose int) [
 				break
 			}
 			if (len(firstEncryptChar) - 1) == j {
-				secondEncrypt = append(secondEncrypt, "§")
+				secondEncrypt = append(secondEncrypt, separator)
 			}
 		}
 	}
